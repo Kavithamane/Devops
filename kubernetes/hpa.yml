@@ -1,6 +1,6 @@
-	# kubectl top pod -n kube-system 
-	# kubectl top node -n kube-system 
-	# kubectl get all 
+# kubectl top pod -n kube-system 
+# kubectl top node -n kube-system 
+# kubectl get all 
 
 vi metric-server.yml 
 
@@ -9,13 +9,13 @@ Go inside of this file -> search for kind: deployment -> type this line under
 --secure-port=4443
 --kubelet-insecure-tls               => type this line 
 
-	# kubectl apply -f metricserver.yml
+# kubectl apply -f metricserver.yml
 
-	# kubectl get namespaces
-	# kubectl get pods -n kube-system 
+# kubectl get namespaces
+# kubectl get pods -n kube-system 
   		 metrics-server-7795c6ff-xb189
 
-	# kubectl logs -f   metrics-server-7795c6ff-xb189 -n kube-system 
+# kubectl logs -f   metrics-server-7795c6ff-xb189 -n kube-system 
 -------------------------
 Vi deployment.yml 
 
@@ -45,11 +45,11 @@ spec:
             requests:
                cpu: 200m
 
-	# kubectl apply -f deployment.yml 
-	# kubectl autoscale deployment <deployment-name> --cpu-percent=20 --min=1 --max=10
-	# kubectl exec -it <pod-name> -- /bin/bash           -> run in different terminal to check the CPU load of teh machine 
-	# watch kubectl get all 
-	# apt-update 
+# kubectl apply -f deployment.yml
+# kubectl autoscale deployment <deployment-name> --cpu-percent=20 --min=1 --max=10
+# kubectl exec -it <pod-name> -- /bin/bash           -> run in different terminal to check the CPU load of teh machine 
+# watch kubectl get all 
+# apt-update 
 
 ----------------------------------------------------
 vi HPA.yml 
@@ -69,5 +69,5 @@ spec:
 
 :wq!
 
-	# kubectl apply -f hpa.yml 
+# kubectl apply -f hpa.yml 
 -------------------- End ------------------------------
