@@ -1,0 +1,73 @@
+	# kubectl top pod -n kube-system 
+	# kubectl top node -n kube-system 
+	# kubectl get all 
+
+vi metric-server.yml 
+
+Go inside of this file -> search for kind: deployment -> type this line under 
+
+--secure-port=4443
+--kubelet-insecure-tls               => type this line 
+
+	# kubectl apply -f metricserver.yml
+
+	# kubectl get namespaces
+	# kubectl get pods -n kube-system 
+  		 metrics-server-7795c6ff-xb189
+
+	# kubectl logs -f   metrics-server-7795c6ff-xb189 -n kube-system 
+-------------------------
+Vi deployment.yml 
+
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+   name: mydeploy
+spec:
+   replicas: 1
+   selector:
+    matchLabels:
+     name: deployment
+   template:
+     metadata:
+       name: testpod8
+       labels:
+         name: deployment
+     spec:
+      containers:
+        - name: c00
+          image: httpd
+          ports:
+          - containerPort: 80
+          resources:
+            limits:
+              cpu: 500m
+            requests:
+               cpu: 200m
+
+	# kubectl apply -f deployment.yml 
+	# kubectl autoscale deployment <deployment-name> --cpu-percent=20 --min=1 --max=10
+	# kubectl exec -it <pod-name> -- /bin/bash           -> run in different terminal to check the CPU load of teh machine 
+	# watch kubectl get all 
+	# apt-update 
+
+----------------------------------------------------
+vi HPA.yml 
+
+kind: HorizontalPodAutoScaler
+apiVersion: autoscaling/v1
+metadata:
+    name: web-application
+spec:
+   maxReplicas: 10
+   minReplicas: 2
+   scaleTragetRef:
+       apiversion: apps/v1
+       kind: Deployment
+       name: web-application
+    targetCPUUtilizationPercentage: 20 
+
+:wq!
+
+	# kubectl apply -f hpa.yml 
+-------------------- End ------------------------------
